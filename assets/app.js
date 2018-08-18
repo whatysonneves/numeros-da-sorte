@@ -28,11 +28,6 @@ var resultados = {
 	"numeros": [],
 };
 
-/**
- * method getContent(endpoint, concurso)
- * Pegar o conteúdo da API
- * O cURL é necessário pois o CORS não é habilitado na API original
- */
 var getContent = function(endpoint, concurso = false) {
 	var concurso = ( concurso === false ? "" : "/" +concurso );
 	var url = "https://whatysonneves.com/numeros-da-sorte/api.php?endpoint=" + endpoint + concurso;
