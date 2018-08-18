@@ -1,0 +1,9 @@
+{
+	"name": "whatysonneves/numeros-da-sorte",
+	"description": "Vai fazer uma 'fezinha'? Usa esse formulário para ver os últimos números sorteados de cada jogo e a frequência de cada um deles.",
+	"keywords": ["loterias", "loterias caixa", "apostas", "megasena", "mega-sena", "lotofacil", "lotofácil", "quina"],
+	"type": "project",
+	"require": {
+		"ixudra/curl": "^6.16"
+	}
+}
