@@ -4,6 +4,7 @@
 	"keywords": ["loterias", "loterias caixa", "apostas", "megasena", "mega-sena", "lotofacil", "lotofácil", "quina"],
 	"type": "project",
 	"require": {
-		"ixudra/curl": "^6.16"
+		"ixudra/curl": "^6.16",
+		"vlucas/phpdotenv": "^4.1"
 	}
 }

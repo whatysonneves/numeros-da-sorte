@@ -1,16 +1,10 @@
 <?php
 
-require "vendor/autoload.php";
+require "bootstrap.php";
+require_once "numerosDaSorte.class.php";
 
-use \Ixudra\Curl\CurlService as Curl;
+$endpoint = stripslashes(( array_key_exists("endpoint", $_REQUEST) ? $_REQUEST["endpoint"] : "lotofacil" ));
+$number = stripslashes(( array_key_exists("number", $_REQUEST) ? $_REQUEST["number"] : "last" ));
+$numerosDaSorte = new numerosDaSorte;
 
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");
-
-$endpoint = stripslashes(( array_key_exists("endpoint", $_GET) ? $_GET["endpoint"] : "" ));
-$curl = new Curl;
-$get = $curl->to("https://www.lotodicas.com.br/api/".$endpoint)->get();
-$get = json_decode($get, true);
-echo json_encode(( empty($get) ? ["status" => false] : array_merge(["status" => true], $get) ));
+echo $numerosDaSorte->get($endpoint, $number);
