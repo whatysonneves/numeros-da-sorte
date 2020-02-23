@@ -1,7 +1,12 @@
 /*!
- * Números da Sorte v1.2 (https://whatysonneves.com/numeros-da-sorte/)
- * Copyright 2018 Whatyson Neves (https://whatysonneves.com/)
+ * Números da Sorte v1.3 (https://whatysonneves.com/numeros-da-sorte/)
+ * Copyright 2020 Whatyson Neves (https://whatysonneves.com/)
  */
+
+var server = "https://whatysonneves.com";
+if(app_env == "local") {
+	server = "http://dev.whatysonneves.com";
+}
 
 var app = new Vue({
 	el: "#app",
@@ -44,7 +49,7 @@ var app = new Vue({
 		},
 		getContent: function(endpoint, concurso = false) {
 			var concurso = ( concurso === false ? "" : "/" + concurso );
-			var url = "https://whatysonneves.com/numeros-da-sorte/api.php?endpoint=" + endpoint + concurso;
+			var url = server + "/numeros-da-sorte/api.php?endpoint=" + endpoint + concurso;
 			$.ajax({
 				method: "GET",
 				url: url,
