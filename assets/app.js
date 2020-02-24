@@ -1,5 +1,5 @@
 /*!
- * Números da Sorte v1.3 (https://whatysonneves.com/numeros-da-sorte/)
+ * Números da Sorte v1.3.2 (https://whatysonneves.com/numeros-da-sorte/)
  * Copyright 2020 Whatyson Neves (https://whatysonneves.com/)
  */
 
@@ -13,9 +13,10 @@ var app = new Vue({
 	data: {
 		loop: 3,
 		current: 0,
+		wait: 11,
 		jogosApp: [
 			{ endpoint: "lotofacil", name: "Lotofácil", class: "btn-info" },
-			{ endpoint: "mega-sena", name: "Mega-Sena", class: "btn-success" },
+			{ endpoint: "mega_sena", name: "Mega-Sena", class: "btn-success" },
 			{ endpoint: "quina", name: "Quina", class: "btn-primary" },
 		],
 		jogo: 0,
@@ -39,7 +40,7 @@ var app = new Vue({
 		},
 		getJogos: function(jogo) {
 			$(".buttonJogo").attr("disabled", true);
-			var concurso = false;
+			var concurso = "last";
 			if(jogo !== this.jogo) {
 				this.resetApp(jogo);
 			} else {
@@ -47,9 +48,8 @@ var app = new Vue({
 			}
 			this.getContent(this.jogosApp[jogo].endpoint, concurso);
 		},
-		getContent: function(endpoint, concurso = false) {
-			var concurso = ( concurso === false ? "" : "/" + concurso );
-			var url = server + "/numeros-da-sorte/api.php?endpoint=" + endpoint + concurso;
+		getContent: function(endpoint, concurso = "last") {
+			var url = server + "/numeros-da-sorte/api.php?endpoint=" + endpoint + "&number=" + concurso;
 			$.ajax({
 				method: "GET",
 				url: url,
@@ -74,11 +74,17 @@ var app = new Vue({
 			this.setNumeros(json.sorteio);
 			if(this.current < this.loop) {
 				concurso = this.getConcurso(app.jogo);
-				this.getContent(this.jogosApp[this.jogo].endpoint, concurso);
+				var t = this;
+				setTimeout(function() {
+					t.getContent(t.jogosApp[t.jogo].endpoint, concurso);
+				}, this.wait*1000);
 			} else {
 				this.current = 0;
 				$(".buttonJogo").attr("disabled", false);
 			}
+		},
+		setSet: function() {
+			this.getContent(this.jogosApp[this.jogo].endpoint, concurso);
 		},
 		setNumeros: function(sorteio) {
 			$.each(sorteio, function(k, v) {
@@ -98,7 +104,7 @@ var app = new Vue({
 		},
 		getConcurso: function() {
 			if(this.jogos.length === 0) {
-				return false;
+				return "last";
 			}
 			return this.jogos[this.jogos.length-1].concurso-1;
 		},
