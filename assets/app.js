@@ -3,6 +3,11 @@
  * Copyright 2020 Whatyson Neves (https://whatysonneves.com/)
  */
 
+/**
+ * Este trecho serve para fazer a ferramenta funcionar no GitHub Pages
+ * acessando o PHP rodando em um servidor externo.
+ * Ao replicar o repositório, alterar o servidor para seu próprio :)
+ */
 var server = "https://whatysonneves.com";
 if(app_env == "local") {
 	server = "http://dev.whatysonneves.com";
