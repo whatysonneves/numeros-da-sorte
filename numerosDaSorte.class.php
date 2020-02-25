@@ -1,3 +1,4 @@
+
 <?php
 
 use \Ixudra\Curl\CurlService as Curl;
@@ -14,8 +15,13 @@ class numerosDaSorte
 
 	function __construct()
 	{
-		$this->token = getenv("LOTODICAS_TOKEN_".$this->token());
+		$this->setToken();
 		$this->user_agent = "Mozilla/5.0 (compatible; NumerosDaSorte/1.3.3; +https://whatysonneves.com/numeros-da-sorte/)";
+	}
+
+	public function setToken()
+	{
+		return $this->token = getenv("LOTODICAS_TOKEN_".$this->token());
 	}
 
 	public function getEndpoint($endpoint = "lotofacil", $number = "last")

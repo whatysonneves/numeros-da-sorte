@@ -12,3 +12,5 @@ header("Access-Control-Allow-Headers: Content-Type, X-Requested-With");
 // load dotenv
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+require_once "numerosDaSorte.class.php";
