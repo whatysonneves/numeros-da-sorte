@@ -1,5 +1,5 @@
 /*!
- * Números da Sorte v1.3.2 (https://whatysonneves.com/numeros-da-sorte/)
+ * Números da Sorte v1.3.3 (https://whatysonneves.com/numeros-da-sorte/)
  * Copyright 2020 Whatyson Neves (https://whatysonneves.com/)
  */
 
@@ -13,7 +13,7 @@ var app = new Vue({
 	data: {
 		loop: 3,
 		current: 0,
-		wait: 11,
+		wait: 1,
 		jogosApp: [
 			{ endpoint: "lotofacil", name: "Lotofácil", class: "btn-info" },
 			{ endpoint: "mega_sena", name: "Mega-Sena", class: "btn-success" },
@@ -49,12 +49,13 @@ var app = new Vue({
 			this.getContent(this.jogosApp[jogo].endpoint, concurso);
 		},
 		getContent: function(endpoint, concurso = "last") {
-			var url = server + "/numeros-da-sorte/api.php?endpoint=" + endpoint + "&number=" + concurso;
+			var url = server + "/numeros-da-sorte/api.php";
 			$.ajax({
 				method: "GET",
 				url: url,
 				timeout: 5000,
 				dataType: "JSON",
+				data: { endpoint: endpoint, number: concurso },
 				cache: false,
 			}).fail(function() {
 				alert("Houve erro no servidor ao tentar recuperar dados de: " + url);
@@ -66,6 +67,7 @@ var app = new Vue({
 					app.setResultados(json);
 				} else {
 					alert("A ferramenta está com problemas");
+					alert("Tente recarregar a página, se persistir, contate o criador");
 				}
 			});
 		},
@@ -82,9 +84,6 @@ var app = new Vue({
 				this.current = 0;
 				$(".buttonJogo").attr("disabled", false);
 			}
-		},
-		setSet: function() {
-			this.getContent(this.jogosApp[this.jogo].endpoint, concurso);
 		},
 		setNumeros: function(sorteio) {
 			$.each(sorteio, function(k, v) {

@@ -12,7 +12,7 @@ class numerosDaSorte
 
 	function __construct()
 	{
-		$this->token = getenv("LOTODICAS_TOKEN_07");
+		$this->token = getenv("LOTODICAS_TOKEN_".self::token());
 	}
 
 	public function getEndpoint($endpoint = "lotofacil", $number = "last")
@@ -25,7 +25,7 @@ class numerosDaSorte
 	public function get($endpoint = "lotofacil", $number = "last")
 	{
 		$curl = new Curl;
-		$get = $curl->to($this->getEndpoint($endpoint, $number))->withOption("USERAGENT", "Mozilla/5.0 (compatible; NumerosDaSorte/1.3.2; +https://whatysonneves.com/numeros-da-sorte/)")->get();
+		$get = $curl->to($this->getEndpoint($endpoint, $number))->withOption("USERAGENT", "Mozilla/5.0 (compatible; NumerosDaSorte/1.3.3; +https://whatysonneves.com/numeros-da-sorte/)")->get();
 		$get = $this->validadeJson($get);
 		return $get;
 	}
@@ -60,6 +60,23 @@ class numerosDaSorte
 			"numero" => (int) $get["data"]["draw_number"],
 			"sorteio" => (array) $get["data"]["drawing"]["draw"],
 		];
+	}
+
+	protected static function getCookie()
+	{
+		$_SESSION["NDS_Token"] = ( array_key_exists("NDS_Token", $_SESSION) ? $_SESSION["NDS_Token"] : 1 );
+		return $_SESSION["NDS_Token"];
+	}
+
+	protected static function token()
+	{
+		$token = self::getCookie();
+		if($_SESSION["NDS_Token"] == 10) {
+			$_SESSION["NDS_Token"] = 1;
+		} else {
+			$_SESSION["NDS_Token"]++;
+		}
+		return ( $token < 10? "0".$token : $token );
 	}
 
 }

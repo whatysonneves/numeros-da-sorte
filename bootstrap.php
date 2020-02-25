@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once "vendor/autoload.php";
 
 header("Content-Type: application/json");
