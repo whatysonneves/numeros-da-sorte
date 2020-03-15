@@ -1,4 +1,5 @@
 # Números da Sorte
+[![time tracker](https://wakatime.com/badge/github/whatysonneves/numeros-da-sorte.svg)](https://wakatime.com/badge/github/whatysonneves/numeros-da-sorte)
 
 Vai fazer uma 'fezinha'? Use esse formulário para ver os últimos números sorteados de cada jogo e a frequência de cada um deles.
 
